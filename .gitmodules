@@ -1,0 +1,3 @@
+[submodule "quantum-api"]
+	path = quantum-api
+	url = git@github.com:Grim-Jokes/quantum-api.git
