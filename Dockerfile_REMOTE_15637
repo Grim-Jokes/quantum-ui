@@ -1,0 +1,12 @@
+FROM node
+
+LABEL project="quantum"
+
+RUN apt-get update -y
+
+RUN mkdir /quantum
+WORKDIR /quantum
+
+ADD package.json /quantum
+
+RUN npm install

@@ -1,0 +1,30 @@
+<<<<<<< 1eea77df3f12cf035607d8b6c0da4fb62632ac82
+FROM node:latest
+
+RUN apt-get update -y
+
+RUN npm install
+
+RUN mkdir /quantum
+
+WORKDIR /quantum
+
+ADD package.json .
+
+RUN npm install
+
+USER node
+=======
+FROM node
+
+LABEL project="quantum"
+
+RUN apt-get update -y
+
+RUN mkdir /quantum
+WORKDIR /quantum
+
+ADD package.json /quantum
+
+RUN npm install
+>>>>>>> dockerize the ui
