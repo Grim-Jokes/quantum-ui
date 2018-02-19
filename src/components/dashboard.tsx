@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Header from 'components/header';
+import Transactions from 'components/transactions';
+import Summary from 'components/summary';
+import Categories from 'components//categories';
 
 class DashboardProperties {
 }
@@ -8,10 +11,12 @@ class DashboardProperties {
 class Dashboard extends React.Component<DashboardProperties> {
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <Header />
-                <div>
-                    Body
+                <div className="row" id="dashboard">
+                    <Transactions />
+                    <Summary />
+                    <Categories />
                 </div>
             </div>
         );

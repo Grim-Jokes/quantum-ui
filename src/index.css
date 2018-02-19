@@ -2,4 +2,56 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  color: #FFF !important;
+}
+
+.amount::before {
+  content: '$'
+}
+
+.card-columns .card {
+  background: rgba(255, 255, 255, 0.2);
+
+}
+
+.expenses.table tr>td{
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.remainder table thead,
+.income table thead,
+.expenses table thead {
+  font-weight: 600;
+}
+
+.expenses.table tr>td:not(:last-child) {
+  padding-right: 1em;
+}
+
+.section {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.expenses.section {
+  height: 25%;
+}
+
+.right {
+  transform: rotate(180deg);
+}
+
+.divider {
+  font-size: 0;
+  display: inline-block;
+  width: 3px;
+  height: 25px;
+  background: rgba(255,255, 255,0.2);
+  vertical-align: sub;
+}
+
+.progress {
+  border-radius: 0 !important;
 }

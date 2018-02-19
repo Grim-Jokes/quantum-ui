@@ -8,7 +8,9 @@ class HeaderProperties {
 class Header extends React.Component<HeaderProperties> {
     render() {
         return (
-            <header />
+            <div className="row">
+                <header />
+            </div>
         );
     }
 }
