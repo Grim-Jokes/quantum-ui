@@ -1,20 +1,15 @@
-import { Action } from 'redux';
-
-class Transaction {
-
-}
-
-interface TransactionState {
-    transactions: Transaction[];
-}
+import * as Actions from 'actions/transactions';
+import { TransactionState } from 'states//transactions';
 
 const initialState: TransactionState = {
     transactions: []
 };
 
-export function transactions(state: TransactionState = initialState, action: Action) {
+export function transactions(state: TransactionState = initialState, action: {type: string, payload: {}}) {
     switch (action.type) {
+        case Actions.SAVE_TRANSACTIONS:
+            return {...state, ...{transactions: action.payload }};
         default:
-            return initialState;
+            return state;
     }
 }
