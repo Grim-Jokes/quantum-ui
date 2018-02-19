@@ -1,21 +1,6 @@
 import * as React from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 
-const data = {
-    labels: ['Hoes', 'Wroom Wroom', 'Main Hoe'],
-    datasets: [
-        {
-            label: 'remainder',
-            textColor: 'rgba(255, 255, 255, 0.2)',
-            backgroundColor: [
-                'rgba(0, 255, 0, 0.2)',
-                'rgba(0, 255, 0, 0.2)',
-                'rgba(255, 0, 0, 0.2)'],
-            data: [10, 5, -9]
-        }
-    ]
-};
-
 const options = {
     legend: {
         labels: {
@@ -41,7 +26,11 @@ const options = {
 };
 
 class Categories extends React.Component {
+
     render() {
+
+        const data = this.getData();
+
         return (
             <div className="categories section col">
                 <div className="p-3">
@@ -54,6 +43,26 @@ class Categories extends React.Component {
             </div>
         );
     }
+
+    private getData() {
+        const data = {
+            labels: ['Hoes', 'Wroom Wroom', 'Main Hoe'],
+            datasets: [
+                {
+                    label: 'remainder',
+                    textColor: 'rgba(255, 255, 255, 0.2)',
+                    backgroundColor: [
+                        'rgba(0, 255, 0, 0.2)',
+                        'rgba(0, 255, 0, 0.2)',
+                        'rgba(255, 0, 0, 0.2)'],
+                    data: [10, 5, -9]
+                }
+            ]
+        };
+
+        return data;
+    }
+
 }
 
 export default Categories;
