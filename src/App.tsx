@@ -5,7 +5,10 @@ import Dashboard from 'components/dashboard';
 class App extends React.Component {
   render() {
     return (
-      <Dashboard />
+      <div>
+        <Dashboard />
+      </div>
+
     );
   }
 }

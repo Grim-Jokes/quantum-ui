@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Header from 'components/header';
 import Transactions from 'components/transactions';
 import Summary from 'components/summary';
-import Categories from 'components//categories';
+import Categories from 'components/categories';
+import SpendingChart from 'components/spending_chart';
 
 class DashboardProperties {
 }
@@ -13,6 +14,9 @@ class Dashboard extends React.Component<DashboardProperties> {
         return (
             <div className="container-fluid">
                 <Header />
+                <div className="row" id="summary">
+                    <SpendingChart />
+                </div>
                 <div className="row" id="dashboard">
                     <Transactions />
                     <Summary />

@@ -1,7 +1,8 @@
 import { Action, Dispatch } from 'redux';
 import { Transaction } from 'models/transaction';
 
-export const SAVE_TRANSACTIONS = 'SAVE_TRANSACTIONS';
+export const RECEIVE_TRANSACTIONS = 'RECEIVE_TRANSACTIONS';
+export const LOAD_TRANSACTIONS = 'LOAD_TRANSACTIONS';
 
 export interface SaveTransactions extends Action {
     payload: Transaction[];
@@ -9,6 +10,7 @@ export interface SaveTransactions extends Action {
 
 export function getTransactions(categoryId?: number | null) {
     return (dispatch: Dispatch<Transaction>, getState: Function) => {
+        dispatch({ type: LOAD_TRANSACTIONS });
         fetch('http://192.168.33.10:8000/api/v1/transactions')
             .then(
                 async (response: Response) => {
@@ -23,7 +25,7 @@ export function getTransactions(categoryId?: number | null) {
 
 export function saveTransactions(transactions?: Transaction[]) {
     return {
-        type: SAVE_TRANSACTIONS,
+        type: RECEIVE_TRANSACTIONS,
         payload: transactions
     };
 }

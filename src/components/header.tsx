@@ -9,7 +9,7 @@ class Header extends React.Component<HeaderProperties> {
     render() {
         return (
             <div className="row">
-                <header />
+                <header className="py-0 my-0" />
             </div>
         );
     }
