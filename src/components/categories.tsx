@@ -1,68 +1,136 @@
 import * as React from 'react';
-import { HorizontalBar } from 'react-chartjs-2';
+import * as Highcharts from 'highcharts';
+import { Action } from 'redux';
+import { connect } from 'react-redux';
+import * as Actions from 'actions/categories';
+import { AppState } from 'states/app-state';
+import { CategoryState } from 'states//categories';
 
-const options = {
-    legend: {
-        labels: {
-            fontColor: 'rgba(255, 255, 255, 0.4)'
+const config: Highcharts.Options = {
+    chart: {
+        type: 'bar',
+        backgroundColor: 'rgba(0,0,0,0)'
+    },
+    title: {
+        text: 'Spending per category',
+        style: {
+            color: 'rgba(255, 255, 255, 0.7)'
         }
     },
-    scales: {
-        xAxes: [{
-            ticks: {
-                fontColor: 'rgba(255, 255, 255, 0.4)'
+    xAxis: {
+        categories: ['Test', 'test1', 'test2'],
+        title: {},
+        visible: true,
+        labels: {
+            style: {
+                color: 'white'
+            }
+        }
+    },
+
+    yAxis: {
+        title: {},
+        tickInterval: 250,
+        lineWidth: 2,
+        labels: {
+            overflow: 'justify'
+        },
+        categories: ['Test', 'test1', 'test2'],
+    },
+
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                style: {
+                    color: 'rgba(255, 255, 255, 1)',
+                    textOutline: undefined
+                }
             },
-            stacked: true,
-            categorySpacing: 0
-        }],
-        yAxes: [{
-            ticks: {
-                fontColor: 'rgba(255, 255, 255, 0.4)'
-            },
-            stacked: false,
-            categorySpacing: 0
-        }]
-    }
+        },
+        bar: {
+            pointWidth: 15,
+            borderColor: 'rgba(0,0,0,0)',
+            negativeColor: 'rgba(255, 0, 0, 0.4)',
+            threshold: 0,
+            color: 'rgba(0, 255, 0, 0.4)',
+        }
+
+    },
+
+    series: [{
+        name: 'Categories',
+        data: [220, 500]
+    }]
 };
 
-class Categories extends React.Component {
+interface CategoriesDispatchProps {
+    getCategories(): Action;
+}
+
+interface CategoriesStateProps {
+    categories: CategoryState;
+}
+
+declare type CategoriesProps = CategoriesStateProps & CategoriesDispatchProps;
+
+class Categories extends React.Component<CategoriesProps> {
+
+    private chart: Highcharts.ChartObject;
+
+    componentWillMount() {
+        this.props.getCategories();
+    }
+
+    componentDidMount() {
+        if (!this.chart) {
+            if (this.props.categories && config.series) {
+                config.series[0].data = this.props.categories.categories.map(
+                    x => { return -500 + Math.round(Math.random() * 10000); }
+                );
+
+                if (config.xAxis) {
+                    const axis: Highcharts.AxisOptions = config.xAxis as Highcharts.AxisOptions;
+                    axis.categories = this.props.categories.categories.map(
+                        x => {
+                            return x.name;
+                        }
+                    );
+                }
+            }
+        }
+    }
+
+    componentWillReceiveProps(nextProps: CategoriesProps) {
+        this.chart = Highcharts.chart('categories', config);
+    }
 
     render() {
 
-        const data = this.getData();
-
         return (
             <div className="categories section col">
-                <div className="p-3">
+                <div className="p-3 h-100">
                     <h6>Categories</h6>
-                    <HorizontalBar
-                        data={data}
-                        options={options}
-                    />
+                    <div id="categories" className="h-100" />
                 </div>
             </div>
         );
     }
-
-    private getData() {
-        const data = {
-            labels: ['Hoes', 'Wroom Wroom', 'Main Hoe'],
-            datasets: [
-                {
-                    label: 'remainder',
-                    textColor: 'rgba(255, 255, 255, 0.2)',
-                    backgroundColor: [
-                        'rgba(0, 255, 0, 0.2)',
-                        'rgba(0, 255, 0, 0.2)',
-                        'rgba(255, 0, 0, 0.2)'],
-                    data: [10, 5, -9]
-                }
-            ]
-        };
-
-        return data;
-    }
-
 }
 
-export default Categories;
+function mapDispatchToProps(dispatch: Function): CategoriesDispatchProps {
+    return {
+        getCategories: () => dispatch(Actions.fetchCategories())
+    };
+}
+
+function mapStateToProps(state: AppState): CategoriesStateProps {
+    return {
+        categories: state.categoriesState
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Categories);

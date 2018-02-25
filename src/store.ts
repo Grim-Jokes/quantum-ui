@@ -1,4 +1,6 @@
 import { transactions } from './reducers/transactions';
+import { categoriesReducer } from 'reducers/categories';
+
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import persistState  from 'redux-localstorage';
@@ -8,7 +10,8 @@ interface DebugWindow extends Window {
 }
 
 const reducers = combineReducers({
-    transactionState: transactions
+    transactionState: transactions,
+    categoriesState: categoriesReducer
 });
 
 const middleWare = applyMiddleware(thunk);

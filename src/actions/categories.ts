@@ -12,7 +12,7 @@ export function fetchCategories() {
     return (dispatch: Dispatch<void>) => {
         dispatch(requestCategories());
 
-        fetch('http://192.168.33.10:8000/api/v1/transactions')
+        fetch('http://192.168.33.10:8000/api/v1/categories')
             .then(
                 async (response: Response) => {
                     const data: Category[] = await response.json();
